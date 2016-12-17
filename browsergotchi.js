@@ -97,6 +97,7 @@ function injectMonsterWindow(){
 	$("body").append('<div id="browsergotchi"></div>');	
 	$("#browsergotchi").draggable();
 	$("#browsergotchi").append('<div id="browsergotchi-hp">HP:</div>');
+	// TODO: Niemcu - pewnie tutaj bedziesz musial jakos wsadzic te obrazki
 	// TODO: Remember last position of the window.
 }
 
