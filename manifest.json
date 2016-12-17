@@ -13,8 +13,13 @@
   "content_scripts": [
     {
       "matches": ["*://*.localhost/*"],
-      "js": ["jquery-3.1.1.min.js", "browsergotchi.js"],
-	  "css": ["browsergotchi.css"]
+	  
+      "js": ["jquery-3.1.1.min.js", 
+			"jquery-ui.min.js", 
+			"browsergotchi.js"],
+	  "css": [
+			"browsergotchi.css", 
+			"jquery-ui.min.css"]
     }
   ]
 

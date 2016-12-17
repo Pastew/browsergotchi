@@ -24,6 +24,7 @@ function executeShowRedBorder(){
 
 function showMonsterWindow(){
 	document.body.innerHTML += '<div id="browsergotchi"></div>';
+	$("#browsergotchi").draggable();
 }
 
 var TIME_BETWEEN_HIT = 2; // in seconds
