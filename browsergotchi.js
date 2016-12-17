@@ -4,7 +4,7 @@ function showRedBorder(duration, maxAlpha){
     $({alpha:0}).animate({alpha:maxAlpha}, {
         duration: duration,
         step: function(){
-            div.css('backgroundColor','rgba(255,0,0,'+this.alpha+')');
+            div.css('border-color','rgba(255,0,0,'+this.alpha+')');
         }
     });
 	
@@ -12,14 +12,14 @@ function showRedBorder(duration, maxAlpha){
 		$({alpha:maxAlpha}).animate({alpha:0}, {
 			duration: duration*3,
 			step: function(){
-				div.css('backgroundColor','rgba(255,0,0,'+this.alpha+')');
+				div.css('border-color','rgba(255,0,0,'+this.alpha+')');
 			}
 		});
 	}, duration);
 }
 
 function executeShowRedBorder(){
-	showRedBorder(200, 0.5);
+	showRedBorder(200, 0.9);
 }
 
 function showMonsterWindow(){
