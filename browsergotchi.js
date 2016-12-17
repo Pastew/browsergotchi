@@ -1,10 +1,31 @@
-function showRedBorder(duration, maxAlpha){
+var URLManager = (function () {
+	var stupidUrls = ["joemonster", "wykop", "demotywatory"];
+	
+	var isStupidUrl = function (url) {
+		
+		console.log("Checking if " + url + " is stupid.");
+		for (var i = 0; i < stupidUrls.length; i++) {
+			if(url.includes(stupidUrls[i])){
+				console.log("Yes, it is stupid.");
+				return true;
+			}
+		}
+		console.log("No, it's fine.");
+		return false;
+	}
+	
+	return {
+		isStupidUrl: isStupidUrl
+	}
+})();
+
+function showBorder(duration, maxAlpha, r, g, b){
     var div = $('#browsergotchi');
 	//var div = $('body'); // You can show red bg color on body instead
     $({alpha:0}).animate({alpha:maxAlpha}, {
         duration: duration,
         step: function(){
-            div.css('border-color','rgba(255,0,0,'+this.alpha+')');
+            div.css('border-color','rgba('+r+','+g+','+b+','+this.alpha+')');
         }
     });
 	
@@ -12,7 +33,7 @@ function showRedBorder(duration, maxAlpha){
 		$({alpha:maxAlpha}).animate({alpha:0}, {
 			duration: duration*3,
 			step: function(){
-				div.css('border-color','rgba(255,0,0,'+this.alpha+')');
+				div.css('border-color','rgba('+r+','+g+','+b+','+this.alpha+')');
 			}
 		});
 	}, duration);
@@ -57,6 +78,29 @@ function onError(){
 	console.log("Failed to load data")
 }
 
+function clearAllIntervals() {
+    for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+}
+
+function pauseTick(){
+	window.clearInterval(intervalID);
+}
+
+function startTick(){
+	//clearAllIntervals();
+	window.clearInterval(intervalID);
+	intervalID = window.setInterval(tick, TIME_BETWEEN_HIT*1000);
+}
+
+function tick(){
+	console.log("TICK");
+	if(URLManager.isStupidUrl(window.location.href))
+		hit();
+	else
+		heal();
+}
+
 function decreaseHP(){
 	var hp = data.hp;
 	var newHP = hp - 10;
@@ -68,29 +112,32 @@ function decreaseHP(){
 	refreshView();
 }
 
+function increaseHP(){
+	var hp = data.hp;
+	var newHP = hp + 10;
+	if(newHP <= 100) {
+		data.hp = newHP;
+	} else {
+		// What if HP is full?
+	}
+	refreshView();
+}
+
 function onMonsterDeath(){
 	data.hp = 150;
 	//window.clearInterval(intervalID)
 }
 
-function clearAllIntervals() {
-    for (var i = 1; i < 99999; i++)
-        window.clearInterval(i);
-}
-
-function pauseHit(){
-	window.clearInterval(intervalID);
-}
-
-function startHit(){
-	//clearAllIntervals();
-	window.clearInterval(intervalID);
-	intervalID = window.setInterval(hit, TIME_BETWEEN_HIT*1000);
-}
-
 function hit(){
-	showRedBorder(200, 0.9);	
+	console.log("HIT");
+	showBorder(200, 0.9, "255", "0", "0");	
 	decreaseHP();
+}
+
+function heal(){
+	console.log("Heal");
+	showBorder(200, 0.9, "0", "255", "0");
+	increaseHP();
 }
 
 function injectMonsterWindow(){
@@ -104,14 +151,14 @@ function injectMonsterWindow(){
 function onBlur() {
 	console.log("Blur");
 	saveData();
-	pauseHit();
+	pauseTick();
 	$("#browsergotchi").hide();
 };
 
 function onFocus(){
 	console.log("Focus");
 	initStorage();
-	startHit();
+	startTick();
 	$("#browsergotchi").show();
 };
 
@@ -119,7 +166,7 @@ var data;
 var TIME_BETWEEN_HIT = 2; // in seconds
 var intervalID;
 initStorage();
-startHit()
+startTick()
 window.onfocus = onFocus;
 window.onblur = onBlur;
 

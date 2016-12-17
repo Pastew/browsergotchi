@@ -16,7 +16,7 @@
       "matches": ["*://*/*"],
 	  
       "js": ["jquery-3.1.1.min.js", 
-			"jquery-ui.min.js", 
+			"jquery-ui.min.js",
 			"browsergotchi.js"],
 	  "css": [
 			"browsergotchi.css", 
