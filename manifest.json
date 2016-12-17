@@ -1,10 +1,10 @@
 {
 
   "manifest_version": 2,
-  "name": "Borderify",
+  "name": "browsergotchi",
   "version": "1.0",
 
-  "description": "Adds a solid red border to all webpages matching mozilla.org.",
+  "description": "Nie lubi gdy oglądasz głupoty w internecie.",
   "permissions": ["tabs",
 				"storage"],
   "icons": {

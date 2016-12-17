@@ -73,6 +73,15 @@ function onMonsterDeath(){
 	//window.clearInterval(intervalID)
 }
 
+function pauseHit(){
+	window.clearInterval(intervalID);
+}
+
+function startHit(){
+	window.clearInterval(intervalID);
+	intervalID = window.setInterval(hit, TIME_BETWEEN_HIT*1000);
+}
+
 function hit(){
 	showRedBorder(200, 0.9);	
 	decreaseHP();
@@ -85,13 +94,24 @@ function injectMonsterWindow(){
 	// TODO: Remember last position of the window.
 }
 
-injectMonsterWindow();
+function onBlur() {
+	console.log("Blur");
+	saveData();
+	pauseHit();
+};
+
+function onFocus(){
+	console.log("Focus");
+	initStorage();
+	startHit();
+};
 
 var data;
-initStorage();
 var TIME_BETWEEN_HIT = 2; // in seconds
-var intervalID = window.setInterval(hit, TIME_BETWEEN_HIT*1000);
+var intervalID;
+initStorage();
+startHit()
+window.onfocus = onFocus;
+window.onblur = onBlur;
 
-$(window).bind('beforeunload', function(){
-  saveData();
-});
+injectMonsterWindow();
