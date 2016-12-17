@@ -21,7 +21,8 @@ function showRedBorder(duration, maxAlpha){
 }
 
 function showMonsterWindow(){
-	document.body.innerHTML += '<div style="position:fixed;top:0; right:0;width:150px;height:150px;opacity:0.8;z-index:100;background:#000;">wwwwwww</div>';
+	document.body.innerHTML += '<div id="browsergotchi"></div>';
 }
-showRedBorder(200, 0.5);
+
+showRedBorder(400, 0.5);
 showMonsterWindow();
