@@ -19,7 +19,9 @@ function showRedBorder(duration, maxAlpha){
 }
 
 function saveData(data){
-	chrome.storage.sync.set({ "data": data }, function(){});
+	chrome.storage.sync.set({ "data": data }, function(){
+		refreshView();
+	});
 	console.log("Saving data: " + data);
 	console.log(data);
 }
@@ -51,16 +53,29 @@ function decreaseHP(){
 	
 }
 
+/*
+This function is executed by saveData.
+If you want to update something in view window do it here.
+*/
+function refreshView(){
+	chrome.storage.sync.get("data", function(item){
+		var data = item.data;
+		$("#browsergotchi-hp").text("HP: " + data.hp);
+	});	
+}
+
 function hit(){
-	showRedBorder(200, 0.9);
-	
+	showRedBorder(200, 0.9);	
 	decreaseHP();
 }
 
 function showMonsterWindow(){
-	document.body.innerHTML += '<div id="browsergotchi"></div>';
+	//document.body.innerHTML += '<div id="browsergotchi"></div>';
+	$("body").append('<div id="browsergotchi"></div>');	
 	$("#browsergotchi").draggable();
-	// TODO: Remember last position. Maybe store x and y in cookie?
+	$("#browsergotchi").append('<div id="browsergotchi-hp">HP PLACEHOLDER</div>');
+	refreshView();
+	// TODO: Remember last position. Maybe store x and y in storage.sync?
 }
 
 var TIME_BETWEEN_HIT = 2; // in seconds
