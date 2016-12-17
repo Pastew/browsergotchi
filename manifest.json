@@ -12,7 +12,7 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.mozilla.org/*"],
+      "matches": ["*://*.localhost/*"],
       "js": ["jquery-3.1.1.min.js", "borderify.js"]
     }
   ]
