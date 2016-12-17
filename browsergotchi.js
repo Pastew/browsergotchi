@@ -1,5 +1,6 @@
 function showRedBorder(duration, maxAlpha){
-    var div = $('body');
+    var div = $('#browsergotchi');
+	//var div = $('body'); // You can show red bg color on body instead
     $({alpha:0}).animate({alpha:maxAlpha}, {
         duration: duration,
         step: function(){
@@ -25,7 +26,6 @@ function showMonsterWindow(){
 	document.body.innerHTML += '<div id="browsergotchi"></div>';
 }
 
-var TIME_BETWEEN_HIT = 3; // in seconds
-document.body.style.backgroundColor = "rgba(255,0,0,0.0)";
+var TIME_BETWEEN_HIT = 2; // in seconds
 var intervalID = window.setInterval(executeShowRedBorder, TIME_BETWEEN_HIT*1000);
 showMonsterWindow();
