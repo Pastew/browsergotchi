@@ -1,7 +1,4 @@
-document.body.style.backgroundColor = "rgba(255,0,0,0.1)";
-
 function showRedBorder(duration, maxAlpha){
-
     var div = $('body');
     $({alpha:0}).animate({alpha:maxAlpha}, {
         duration: duration,
@@ -20,9 +17,15 @@ function showRedBorder(duration, maxAlpha){
 	}, duration);
 }
 
+function executeShowRedBorder(){
+	showRedBorder(200, 0.5);
+}
+
 function showMonsterWindow(){
 	document.body.innerHTML += '<div id="browsergotchi"></div>';
 }
 
-showRedBorder(400, 0.5);
+var TIME_BETWEEN_HIT = 3; // in seconds
+document.body.style.backgroundColor = "rgba(255,0,0,0.0)";
+var intervalID = window.setInterval(executeShowRedBorder, TIME_BETWEEN_HIT*1000);
 showMonsterWindow();
