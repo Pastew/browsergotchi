@@ -5,7 +5,7 @@
   "version": "1.0",
 
   "description": "Adds a solid red border to all webpages matching mozilla.org.",
-
+  "permissions": ["tabs"],
   "icons": {
     "48": "icons/border-48.png"
   },
