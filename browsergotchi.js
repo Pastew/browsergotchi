@@ -63,7 +63,7 @@ function initStorage(){
 		if(!item.data){
 			console.log("This is first run of this app. Will initialize fields");	
 			data = new Object();
-			data.hp = 150;
+			data.hp = 100;
 			data.tmp = "blublu";
 			saveData();
 		}
@@ -124,7 +124,7 @@ function increaseHP(){
 }
 
 function onMonsterDeath(){
-	data.hp = 150;
+	data.hp = 100;
 	//window.clearInterval(intervalID)
 }
 
