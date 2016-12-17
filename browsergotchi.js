@@ -1,6 +1,14 @@
 var URLManager = (function () {
 	var stupidUrls = ["joemonster", "wykop", "demotywatory"];
 	
+	var getStupidUrls = function() {
+		return stupidUrls;
+	}
+	
+	var setStupidUrls = function(urls){
+		stupidUrls = urls;
+	}
+	
 	var isStupidUrl = function (url) {
 		
 		console.log("Checking if " + url + " is stupid.");
@@ -15,7 +23,9 @@ var URLManager = (function () {
 	}
 	
 	return {
-		isStupidUrl: isStupidUrl
+		isStupidUrl: isStupidUrl,
+		getStupidUrls: getStupidUrls,
+		setStupidUrls: setStupidUrls
 	}
 })();
 
@@ -65,12 +75,20 @@ function initStorage(){
 			data = new Object();
 			data.hp = 100;
 			data.tmp = "blublu";
+			data.stupidUrls = URLManager.getStupidUrls();
 			saveData();
 		}
 		else{
 			data = item.data;
+			if(!data.stupidUrls){
+				data.stupidUrls = URLManager.getStupidUrls();
+				saveData();
+			} else {
+				URLManager.setStupidUrls(data.stupidUrls);
+			}
 			refreshView();
 		}
+		console.log(data);
 	});
 }
 
