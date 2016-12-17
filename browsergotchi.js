@@ -59,7 +59,7 @@ function decreaseHP(){
 }
 
 function onMonsterDeath(){
-	//window.clearInterval(intervalID)
+	window.clearInterval(intervalID)
 }
 
 function hit(){
@@ -67,15 +67,17 @@ function hit(){
 	decreaseHP();
 }
 
-function showMonsterWindow(){
+function injectMonsterWindow(){
 	$("body").append('<div id="browsergotchi"></div>');	
 	$("#browsergotchi").draggable();
-	$("#browsergotchi").append('<div id="browsergotchi-hp"></div>');
-	// TODO: Remember last position of the window. Maybe store x and y in storage.sync?
+	$("#browsergotchi").append('<div id="browsergotchi-hp">HP:</div>');
+	// TODO: Remember last position of the window.
 }
 
+injectMonsterWindow();
+
 var data;
-localStorage.clear();
+//localStorage.clear();
 initStorage();
 var TIME_BETWEEN_HIT = 2; // in seconds
 var intervalID = window.setInterval(hit, TIME_BETWEEN_HIT*1000);
@@ -83,5 +85,3 @@ var intervalID = window.setInterval(hit, TIME_BETWEEN_HIT*1000);
 $(window).bind('beforeunload', function(){
   alert('aaa');
 });
-
-showMonsterWindow();
