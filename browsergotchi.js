@@ -19,8 +19,10 @@ function showRedBorder(duration, maxAlpha){
 }
 
 function saveData(){
-	localStorage.setItem('data', JSON.stringify(data));
-	refreshView();
+	console.log("Calling storage.sync.set");
+	chrome.storage.sync.set({"data": data}, function () {
+		refreshView();
+	});	
 }
 
 /*
@@ -33,18 +35,26 @@ function refreshView(){
 	$("#browsergotchi-hp").text("HP: " + data.hp);	
 }
 
-function initStorage(){	
-	data = JSON.parse(localStorage.getItem('data'));
-	if(!data){
-		console.log("This is first run of this app. Will initialize fields");	
-		data = new Object();
-		data.hp = 150;
-		data.tmp = "blublu";
-		saveData();
-	}
-	else{
-		refreshView();
-	}
+function initStorage(){
+	console.log("Calling storage.sync.get");
+	chrome.storage.sync.get("data", function (item) {
+		console.log(item.data);
+		if(!item.data){
+			console.log("This is first run of this app. Will initialize fields");	
+			data = new Object();
+			data.hp = 150;
+			data.tmp = "blublu";
+			saveData();
+		}
+		else{
+			data = item.data;
+			refreshView();
+		}
+	});
+}
+
+function onError(){
+	console.log("Failed to load data")
 }
 
 function decreaseHP(){
@@ -52,14 +62,15 @@ function decreaseHP(){
 	var newHP = hp - 10;
 	if(newHP > 0) {
 		data.hp = newHP;
-		saveData(data);
 	} else{
 		onMonsterDeath();
 	}
+	refreshView();
 }
 
 function onMonsterDeath(){
-	window.clearInterval(intervalID)
+	data.hp = 150;
+	//window.clearInterval(intervalID)
 }
 
 function hit(){
@@ -77,11 +88,10 @@ function injectMonsterWindow(){
 injectMonsterWindow();
 
 var data;
-//localStorage.clear();
 initStorage();
 var TIME_BETWEEN_HIT = 2; // in seconds
 var intervalID = window.setInterval(hit, TIME_BETWEEN_HIT*1000);
 
 $(window).bind('beforeunload', function(){
-  alert('aaa');
+  saveData();
 });
