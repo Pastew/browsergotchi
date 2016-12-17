@@ -61,9 +61,10 @@ This function is executed by saveData.
 If you want to update something in view window do it here.
 */
 function refreshView(){
-	console.log(data.hp);
 	console.log("RefreshView");
-	$("#browsergotchi-hp").text("HP: " + data.hp);	
+	//$("#browsergotchi-hp").text("HP: " + data.hp);
+	console.log($(".browsergotchi-hp > span"));
+	$(".browsergotchi-hp > span").width(data.hp + "%");
 }
 
 function initStorage(){
@@ -161,7 +162,7 @@ function heal(){
 function injectMonsterWindow(){
 	$("body").append('<div id="browsergotchi"></div>');	
 	$("#browsergotchi").draggable();
-	$("#browsergotchi").append('<div id="browsergotchi-hp">HP:</div>');
+	$("#browsergotchi").append('<div class="browsergotchi-hp"><span style="width: 25%"></span></div>');
 	// TODO: Niemcu - pewnie tutaj bedziesz musial jakos wsadzic te obrazki
 	// TODO: Remember last position of the window.
 }
