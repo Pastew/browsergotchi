@@ -73,11 +73,17 @@ function onMonsterDeath(){
 	//window.clearInterval(intervalID)
 }
 
+function clearAllIntervals() {
+    for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+}
+
 function pauseHit(){
 	window.clearInterval(intervalID);
 }
 
 function startHit(){
+	//clearAllIntervals();
 	window.clearInterval(intervalID);
 	intervalID = window.setInterval(hit, TIME_BETWEEN_HIT*1000);
 }
@@ -98,12 +104,14 @@ function onBlur() {
 	console.log("Blur");
 	saveData();
 	pauseHit();
+	$("#browsergotchi").hide();
 };
 
 function onFocus(){
 	console.log("Focus");
 	initStorage();
 	startHit();
+	$("#browsergotchi").show();
 };
 
 var data;
