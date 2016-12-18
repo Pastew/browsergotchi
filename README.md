@@ -20,3 +20,12 @@ Krakow, Poland
 1. Select your unzipped folder
 1. It should work
 
+## Jak zainstalować w Chrome
+1. Otwórz https://github.com/Pastew/browsergotchi
+1. Kliknij *Clone or download* -> Kliknij *Download .ZIP*
+1. Rozpakuj archiwum
+1. Otwórz Chrome. W pasku adresu wpisz chrome://extensions/
+1. Zaznacz *Tryb Programisty*
+1. Kliknij *Wczytaj rozszerzenie bez pakietu*
+1. Wybierz folder który rozpakowałeś wcześniej
+1. Powinno działać.
