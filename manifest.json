@@ -22,6 +22,9 @@
 			"browsergotchi.css", 
 			"jquery-ui.min.css"]
     }
-  ]
+  ],
 
+  "web_accessible_resources": [
+    "assets/*.svg"
+  ]
 }

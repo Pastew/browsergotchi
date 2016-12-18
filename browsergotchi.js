@@ -63,7 +63,10 @@ If you want to update something in view window do it here.
 function refreshView(){
 	console.log(data.hp);
 	console.log("RefreshView");
-	$("#browsergotchi-hp").text("HP: " + data.hp);	
+	$("#browsergotchi-hp").text("HP: " + data.hp);
+	var url = chrome.extension.getURL('assets/' + getFrogImageBasedOnHP(data.hp));
+    $('#browsergotchi-monster').attr('src', url);
+    updateHPBar();
 }
 
 function initStorage(){
@@ -148,22 +151,85 @@ function onMonsterDeath(){
 
 function hit(){
 	console.log("HIT");
-	showBorder(200, 0.9, "255", "0", "0");	
+	// showBorder(200, 0.9, "255", "0", "0");
+	$('#browsergotchi-monster').addClass('monster-hit');
 	decreaseHP();
 }
 
 function heal(){
 	console.log("Heal");
-	showBorder(200, 0.9, "0", "255", "0");
-	increaseHP();
+	// showBorder(200, 0.9, "0", "255", "0");
+    $('#browsergotchi-monster').addClass('monster-heal');
+    increaseHP();
 }
+
+function getFrogImageBasedOnHP(hp) {
+    if (hp < 10)
+        return 'killed.svg';
+    if (hp < 40)
+        return 'sad30.svg';
+    if (hp < 60)
+        return 'normal.svg';
+    if (hp < 84)
+        return 'fairlyHappy.svg';
+
+    return 'happy.svg';
+}
+
+var monsterShown = false,
+	animating = false;
 
 function injectMonsterWindow(){
 	$("body").append('<div id="browsergotchi"></div>');	
 	$("#browsergotchi").draggable();
+	$("#browsergotchi").draggable('disable');
 	$("#browsergotchi").append('<div id="browsergotchi-hp">HP:</div>');
 	// TODO: Niemcu - pewnie tutaj bedziesz musial jakos wsadzic te obrazki
+	var svg = $('<img />');
+
+	var hpbar = $('<div />');
+	$(hpbar).attr('id', 'browsergotchi-hpbar');
+	$(hpbar).append('<div id="browsergotchi-hpbar-grad"></div>');
+	$(hpbar).appendTo('#browsergotchi');
+
+	$(svg).attr('src', chrome.extension.getURL('assets/normal.svg'));
+	$(svg).attr('id', 'browsergotchi-monster');
+	$(svg).on('animationend', function (e) {
+		e.stopPropagation();
+		$(this).removeClass('monster-hit monster-heal');
+    });
+	console.log('svg');
+	svg.appendTo('#browsergotchi');
+
+	$('#browsergotchi').on('click', function () {
+        animating = true;
+		console.log(' KLIK KURWA ');
+		if (monsterShown) {
+            $('#browsergotchi').addClass('browsergotchi-hiding');
+		} else {
+            $('#browsergotchi').addClass('browsergotchi-showing');
+		}
+	});
+    $('#browsergotchi').on('animationend', function () {
+    	console.log('cuda sie tu dzieje');
+        if (monsterShown) {
+            $(this).removeClass('browsergotchi-hiding browsergotchi-shown').addClass('browsergotchi-hidden');
+            monsterShown = false;
+            $("#browsergotchi").draggable('disable');
+        } else {
+            $(this).removeClass('browsergotchi-showing browsergotchi-hidden').addClass('browsergotchi-shown');
+            monsterShown = true;
+            $("#browsergotchi").draggable('enable');
+        }
+    });
+
 	// TODO: Remember last position of the window.
+}
+
+function updateHPBar() {
+	$('#browsergotchi-hpbar-grad').css({
+		width: data.hp + '%'
+	});
 }
 
 function onBlur() {

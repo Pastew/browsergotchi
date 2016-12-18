@@ -3,17 +3,119 @@
 	top:0;
 	right:0;
 	
-	width:150px;
-	height:150px;
+	width:250px;
+	height:250px;
 	
-	opacity:0.8;
 	z-index:2147483647;
 	
-	border:solid;
+	/*background:#000;*/
+	transform: rotate(-90deg) translateY(105px);
+	transform-origin: 50%;
+}
 
-	background:#000;
+#browsergotchi.browsergotchi-shown {
+	transform: none;
+}
+
+#browsergotchi.browsergotchi-shown #browsergotchi-hpbar {
+	opacity: 1;
+}
+
+#browsergotchi.browsergotchi-shown #browsergotchi-hp {
+	opacity: 1;
+}
+
+#browsergotchi.browsergotchi-hidden {
+	transform: rotate(-90deg) translateY(105px);
+}
+#browsergotchi.browsergotchi-showing {
+	animation: hop-in 0.9s 1 cubic-bezier(.86,0,.07,1) alternate;
+}
+#browsergotchi.browsergotchi-hiding {
+	animation: hop-out 0.9s 1 cubic-bezier(.86,0,.07,1) alternate;
+}
+
+#browsergotchi-hpbar {
+	width: 100%;
+	border-radius: 8px;
+	height: 20px;
+	border: 3px solid #222;
+	padding: 2px;
+	opacity: 0;
+	transition: opacity .3s;
+}
+
+#browsergotchi-monster.monster-hit {
+	animation: browsergotchi-monster-hit 0.9s 1 cubic-bezier(.86,0,.07,1);
+}
+
+#browsergotchi-monster.monster-heal {
+	animation: browsergotchi-monster-heal 0.9s 1 cubic-bezier(.86,0,.07,1);
+}
+
+@keyframes browsergotchi-monster-hit {
+	0% {
+		filter: sepia(180%) contrast(150%);
+	}
+	100% {
+		filter: none;
+	}
+}
+
+@keyframes browsergotchi-monster-heal {
+	0% {
+		filter: contrast(150%);
+	}
+	100% {
+		filter: none;
+	}
+}
+
+#browsergotchi-hpbar-grad {
+	background: linear-gradient(to right, red 0%, green 100%);
+	width: 80%;
+	height: 100%;
+	transition: all 0.8s;
 }
 
 #browsergotchi-hp{
-	color: white;
+	color: #111;
+	background: rgba(255, 255, 255, 0.7);
+	opacity: 0;
+}
+
+#browsergotchi-monster {
+	width: 100%;
+	height: 100%;
+}
+
+#browsergotchi:hover {
+}
+
+#browsergotchi.entering {
+	animation: enter 0.9s 1 linear;
+}
+
+#browsergotchi.hide {
+	transform: translateX(400px);
+}
+
+@keyframes browsergotchi-enter {
+	0%   { transform: none; }
+	25% { transform: rotateX(20deg) rotateY(15deg) scale(1.1); }
+	40% { transform: rotate(0deg) scale(1.0); }
+	65% { transform: rotate(-11deg) scale(1.1); }
+	100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes hop-in {
+	0% { transform: rotate(-90deg) translateY(105px); }
+	25% { transform: rotate(-90deg); }
+	100% { transform: none; }
+}
+
+@keyframes hop-out {
+	0% { transform: none; }
+	25% { transform: rotate(-90deg); }
+	100% { transform: rotate(-90deg) translateY(105px); }
 }
