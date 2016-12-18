@@ -9,3 +9,14 @@ The project was brought to life by [@Pastew](https://github.com/Pastew) & [@ympe
 on BAIT (Best Automatics & IT Festival) Hackathon,
 Krakow, Poland
 17-18.12.2016
+
+## How to install in Chrome
+1. Go to https://github.com/Pastew/browsergotchi
+1. Click *Clone or download* -> click *Download .ZIP*
+1. Unzip downloaded archive
+1. Open Chrome. Go to chrome://extensions/
+1. Check *Developer Mode*
+1. Click *Load extension without package*
+1. Select your unzipped folder
+1. It should work
+
