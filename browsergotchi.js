@@ -198,7 +198,7 @@ function startTick(){
 }
 
 function tick(){
-	if(window.location.href.includes("youtube")){
+	if(window.location.href.includes("youtube.com/watch")){
         handleYoutubeUrl(window.location.href);
 	}
 	else if(URLManager.isStupidUrl(window.location.href))
