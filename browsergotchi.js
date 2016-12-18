@@ -313,7 +313,6 @@ function increaseHP(){
 function onMonsterDeath(){
     if (data.hp <= 0) {
         //showDeathMessage();
-        window.clearInterval(intervalID);
     } else {
 
     }
