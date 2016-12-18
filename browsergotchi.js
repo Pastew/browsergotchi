@@ -71,14 +71,10 @@ function refreshView(){
 	console.log(data.hp);
 	console.log("RefreshView");
 
-	if (data.hp < 11) {
-		showDeathMessage();
-    } else {
-        $("#browsergotchi-hp").text("HP: " + data.hp);
-        var url = chrome.extension.getURL('assets/' + getFrogImageBasedOnHP(data.hp));
-        $('#browsergotchi-monster').attr('src', url);
-        updateHPBar();
-    }
+	$("#browsergotchi-hp").text("HP: " + data.hp);
+	var url = chrome.extension.getURL('assets/' + getFrogImageBasedOnHP(data.hp));
+	$('#browsergotchi-monster').attr('src', url);
+	updateHPBar();
 }
 
 function initStorage(){
