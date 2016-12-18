@@ -43,44 +43,53 @@ var URLManager = (function () {
     }
 
     var isCategoryStupid = function(category){
-        /*2 - Autos & Vehicles
-        1 -  Film & Animation
-        10 - Music
-        15 - Pets & Animals
-        17 - Sports
-        18 - Short Movies
-        19 - Travel & Events
-        20 - Gaming
-        21 - Videoblogging
-        22 - People & Blogs
-        23 - Comedy
-        24 - Entertainment
-        25 - News & Politics
-        26 - Howto & Style
-        27 - Education
-        28 - Science & Technology
-        29 - Nonprofits & Activism
-        30 - Movies
-        31 - Anime/Animation
-        32 - Action/Adventure
-        33 - Classics
-        34 - Comedy
-        35 - Documentary
-        36 - Drama
-        37 - Family
-        38 - Foreign
-        39 - Horror
-        40 - Sci-Fi/Fantasy
-        41 - Thriller
-        42 - Shorts
-        43 - Shows
-        44 - Trailers*/
         var stupidCategories = [1,10,18,20,21,22,23,24,26,30,31,32,34,37,39,40,41,42,43,44];
         for (var i = 0 ; i < stupidCategories.length ; i++)
-        	if(stupidCategories[i] == category);
+        	if(stupidCategories[i].toString() === category.toString())
 				return true;
 
 		return false;
+	}
+
+	var getCategoryName = function(categoryId){
+		var categories = [];
+        categories[2] = "Autos & Vehicles",
+		categories[1] = " Film & Animation",
+		categories[10] = "Music",
+		categories[15] = "Pets & Animals",
+		categories[17] = "Sports",
+		categories[18] = "Short Movies",
+		categories[19] = "Travel & Events",
+		categories[20] = "Gaming",
+		categories[21] = "Videoblogging",
+		categories[22] = "People & Blogs",
+		categories[23] = "Comedy",
+		categories[24] = "Entertainment",
+		categories[25] = "News & Politics",
+		categories[26] = "Howto & Style",
+		categories[27] = "Education",
+		categories[28] = "Science & Technology",
+		categories[29] = "Nonprofits & Activism",
+		categories[30] = "Movies",
+		categories[31] = "Anime/Animation",
+		categories[32] = "Action/Adventure",
+		categories[33] = "Classics",
+		categories[34] = "Comedy",
+		categories[35] = "Documentary",
+		categories[36] = "Drama",
+		categories[37] = "Family",
+		categories[38] = "Foreign",
+		categories[39] = "Horror",
+		categories[40] = "Sci-Fi/Fantasy",
+		categories[41] = "Thriller",
+		categories[42] = "Shorts",
+		categories[43] = "Shows",
+		categories[44] = "Trailers"
+
+		if(!categories[categoryId])
+			return "Unknown category";
+
+        return categories[categoryId];
 	}
 
 	return {
@@ -91,7 +100,8 @@ var URLManager = (function () {
         setSmartUrls: setSmartUrls,
 		isSmartUrl: isSmartUrl,
         getCurrentWebsiteName: getCurrentWebsiteName,
-        isCategoryStupid: isCategoryStupid
+        isCategoryStupid: isCategoryStupid,
+        getCategoryName: getCategoryName
 	}
 })();
 
@@ -186,7 +196,7 @@ function startTick(){
 }
 
 function tick(){
-	if(window.location.href.includes("youtube")){
+	if(window.location.href.includes("youtube.com/watch")){
         handleYoutubeUrl(window.location.href);
 	}
 	else if(URLManager.isStupidUrl(window.location.href))
@@ -243,6 +253,16 @@ function handleYoutubeUrl(url){
            // document.getElementById("Country").innerHTML = jsonObj.country;
 			var categoryId = jsonObj.items[0].snippet.categoryId;
             console.log("CategoryID: " + categoryId);
+            console.log("Category name: " + URLManager.getCategoryName(categoryId));
+
+            if(URLManager.isCategoryStupid(categoryId)) {
+                hit();
+                console.log("Hit because category " + categoryId + " is stupid");
+            }
+			else {
+                heal();
+                console.log("Heal because category " + categoryId + " is smart	");
+            }
         }
     }
 
