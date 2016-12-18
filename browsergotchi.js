@@ -118,9 +118,12 @@ function displayInfobox(title, message) {
     $('<h2>').html(title).appendTo(box);
     $('<p>').html(message).appendTo(box);
 
-    setTimeout(function () {
-		box.fadeOut();
-    }, 2200)
+
+    box.fadeIn();
+
+    box.on('mouseover', function () {
+        box.fadeOut('slow');
+    });
 }
 
 function saveData(){
@@ -255,6 +258,8 @@ function handleYoutubeUrl(url){
             console.log("CategoryID: " + categoryId);
             console.log("Category name: " + URLManager.getCategoryName(categoryId));
 
+            displayInfobox('Ratuj mnie! :(', 'Tracę punkty życia, ponieważ film na YouTube który oglądasz znajduje się w kategorii ' + URLManager.getCategoryName(categoryId) + ', która jest głupia.')
+
             if(URLManager.isCategoryStupid(categoryId)) {
                 hit();
                 console.log("Hit because category " + categoryId + " is stupid");
@@ -376,9 +381,6 @@ function injectMonsterWindow(){
 		} else {
             $('#browsergotchi').addClass('browsergotchi-showing');
 		}
-
-
-		displayInfobox('Dupa', 'dupa duap asduh sad ');
 	});
     $('#browsergotchi').on('animationend', function () {
         $(this).removeClass('updating');
