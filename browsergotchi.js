@@ -200,8 +200,17 @@ function tick(){
 }
 
 function handleYoutubeUrl(url){
-	console.log("####### HANDLE YT ######");
-    url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=-fhRmv8X7Mk&key=AIzaSyBVJvYl1JBNq6hlMUaegUJaDLeEM4kwzag";
+	var idIdx = url.indexOf('?v=') + 3;
+	var ampIdx = url.indexOf('&');
+	var videoId;
+
+	if (ampIdx === -1) {
+		videoId = url.substring(idIdx);
+	} else {
+        videoId = url.substring(idIdx, ampIdx);
+	}
+
+    url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + videoId + "&key=AIzaSyBVJvYl1JBNq6hlMUaegUJaDLeEM4kwzag";
 
     var http_request = new XMLHttpRequest();
     try{
