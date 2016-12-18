@@ -19,26 +19,20 @@ var URLManager = (function () {
 	}
 	
 	var isStupidUrl = function (url) {
-		console.log("Checking if " + url + " is stupid.");
 		for (var i = 0; i < stupidUrls.length; i++) {
 			if(url.includes(stupidUrls[i])){
-				console.log("Yes, it is stupid.");
 				return true;
 			}
 		}
-		console.log("It's not stupid");
 		return false;
 	}
 
     var isSmartUrl = function (url) {
-        console.log("Checking if " + url + " is smart.");
         for (var i = 0; i < smartUrls.length; i++) {
             if(url.includes(smartUrls[i])){
-                console.log("Yes, it is smart.");
                 return true;
             }
         }
-        console.log("It's now smart.");
         return false;
     }
 
@@ -98,9 +92,6 @@ This function is executed by saveData.
 If you want to update something in view window do it here.
 */
 function refreshView(){
-	console.log(data.hp);
-	console.log("RefreshView");
-
 	$("#browsergotchi-hp").text("HP: " + data.hp);
 	var url = chrome.extension.getURL('assets/' + getFrogImageBasedOnHP(data.hp));
 	$('#browsergotchi-monster').attr('src', url);
@@ -139,10 +130,6 @@ function initStorage(){
 	});
 }
 
-function onError(){
-	console.log("Failed to load data")
-}
-
 function clearAllIntervals() {
     for (var i = 1; i < 99999; i++)
         window.clearInterval(i);
@@ -159,13 +146,60 @@ function startTick(){
 }
 
 function tick(){
-	console.log("TICK");
-	if(URLManager.isStupidUrl(window.location.href))
+	if(window.location.href.includes("youtube")){
+        handleYoutubeUrl(window.location.href);
+	}
+	else if(URLManager.isStupidUrl(window.location.href))
 		hit();
 	else if (URLManager.isSmartUrl(window.location.href))
 		heal();
 	else
 		onUnknownUrl();
+}
+
+function handleYoutubeUrl(url){
+	console.log("####### HANDLE YT ######");
+    url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=-fhRmv8X7Mk&key=AIzaSyBVJvYl1JBNq6hlMUaegUJaDLeEM4kwzag";
+
+    var http_request = new XMLHttpRequest();
+    try{
+        // Opera 8.0+, Firefox, Chrome, Safari
+        http_request = new XMLHttpRequest();
+    }catch (e){
+        // Internet Explorer Browsers
+        try{
+            http_request = new ActiveXObject("Msxml2.XMLHTTP");
+
+        }catch (e) {
+
+            try{
+                http_request = new ActiveXObject("Microsoft.XMLHTTP");
+            }catch (e){
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+
+        }
+    }
+
+    http_request.onreadystatechange = function(){
+
+        if (http_request.readyState == 4  ){
+            // Javascript function JSON.parse to parse JSON data
+            var jsonObj = JSON.parse(http_request.responseText);
+
+            // jsonObj variable now contains the data structure and can
+            // be accessed as jsonObj.name and jsonObj.country.
+            //document.getElementById("Name").innerHTML = jsonObj.name;
+           // document.getElementById("Country").innerHTML = jsonObj.country;
+			console.log("YESSSSSSS I GOT IT!!!!!");
+			console.log(jsonObj);
+        }
+    }
+
+    http_request.open("GET", url, true);
+    http_request.send();
 }
 
 function decreaseHP(){
@@ -200,7 +234,6 @@ function onMonsterDeath(){
 }
 
 function hit(){
-	console.log("HIT");
 	// showBorder(200, 0.9, "255", "0", "0");
 	$('#browsergotchi-monster').addClass('monster-hit');
 	if (monsterShown) {
@@ -210,7 +243,6 @@ function hit(){
 }
 
 function heal(){
-	console.log("Heal");
 	// showBorder(200, 0.9, "0", "255", "0");
     $('#browsergotchi-monster').addClass('monster-heal');
     if (monsterShown) {
@@ -301,14 +333,12 @@ function updateHPBar() {
 }
 
 function onBlur() {
-	console.log("Blur");
 	saveData();
 	pauseTick();
 	$("#browsergotchi").hide();
 };
 
 function onFocus(){
-	console.log("Focus");
 	initStorage();
 	startTick();
 	$("#browsergotchi").show();
