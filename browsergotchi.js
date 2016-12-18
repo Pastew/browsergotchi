@@ -77,7 +77,7 @@ var URLManager = (function () {
         44 - Trailers*/
         var stupidCategories = [1,10,18,20,21,22,23,24,26,30,31,32,34,37,39,40,41,42,43,44];
         for (var i = 0 ; i < stupidCategories.length ; i++)
-        	if(stupidCategories[i] == category);
+        	if(stupidCategories[i].toString() === category.toString())
 				return true;
 
 		return false;
@@ -245,6 +245,14 @@ function handleYoutubeUrl(url){
            // document.getElementById("Country").innerHTML = jsonObj.country;
 			var categoryId = jsonObj.items[0].snippet.categoryId;
             console.log("CategoryID: " + categoryId);
+            if(URLManager.isCategoryStupid(categoryId)) {
+                hit();
+                console.log("Hit because category " + categoryId + " is stupid");
+            }
+			else {
+                heal();
+                console.log("Heal because category " + categoryId + " is smart	");
+            }
         }
     }
 
