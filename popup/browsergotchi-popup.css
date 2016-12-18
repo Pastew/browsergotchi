@@ -1,0 +1,41 @@
+body {
+    width: 300px;
+}
+
+#smartList {
+    color: red;
+}
+
+.browsergotchi-switch .browsergotchi-smartBtn, .browsergotchi-switch .browsergotchi-stupidBtn {
+    float: left;
+    width: 50%;
+    text-align: center;
+    background: #c9d3dc;
+    padding: 5px 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.browsergotchi-switch .browsergotchi-smartBtn.activated, .browsergotchi-switch .browsergotchi-stupidBtn.activated {
+    background: #6ce65d;
+}
+
+
+#browsergotchi-smartList {
+    clear: both;
+    margin-top: 50px;
+    font-size: 16px;
+}
+
+#browsergotchi-stupidList {
+    clear: both;
+    margin-top: 50px;
+    display: none;
+    font-size: 16px;
+}
+
+#browsergotchi-smartList span, #browsergotchi-stupidList span {
+    text-decoration: none;
+    color: red;
+    cursor: pointer;
+}
