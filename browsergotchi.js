@@ -137,7 +137,7 @@ function tick(){
 function decreaseHP(){
 	var hp = data.hp;
 	var newHP = hp - 10;
-	if(newHP > 0) {
+	if(newHP >= 0) {
 		data.hp = newHP;
 	} else{
 		onMonsterDeath();
@@ -157,8 +157,12 @@ function increaseHP(){
 }
 
 function onMonsterDeath(){
-	data.hp = 100;
-	//window.clearInterval(intervalID)
+    if (data.hp <= 0) {
+        //showDeathMessage();
+        window.clearInterval(intervalID);
+    } else {
+
+    }
 }
 
 function hit(){
@@ -182,7 +186,7 @@ function heal(){
 }
 
 function getFrogImageBasedOnHP(hp) {
-    if (hp < 10)
+    if (hp <= 0)
         return 'killed.svg';
     if (hp < 40)
         return 'sad30.svg';
@@ -261,6 +265,10 @@ function onFocus(){
 	startTick();
 	$("#browsergotchi").show();
 };
+
+$(window).bind('beforeunload', function(){
+    saveData();
+});
 
 var data;
 var TIME_BETWEEN_HIT = 2; // in seconds
