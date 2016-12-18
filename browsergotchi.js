@@ -105,11 +105,19 @@ var URLManager = (function () {
 	}
 })();
 
+var infoboxShownHere = '';
+
 function displayInfobox(title, message) {
+	console.log('display INFOB', infoboxShownHere);
+    if(infoboxShownHere === window.location.href)
+        return;
+    console.log('Ty kurow');
+    infoboxShownHere = window.location.href;
+
 	var box;
     if ($('#browsergotchi-infobox').length > 0) {
     	box = $('#browsergotchi-infobox');
-    	box.html();
+    	box.html("");
 	} else {
 		box = $('<div id="browsergotchi-infobox"></div>');
 		console.log(box);
@@ -258,14 +266,16 @@ function handleYoutubeUrl(url){
             console.log("CategoryID: " + categoryId);
             console.log("Category name: " + URLManager.getCategoryName(categoryId));
 
-            displayInfobox('Ratuj mnie! :(', 'Tracę punkty życia, ponieważ film na YouTube który oglądasz znajduje się w kategorii ' + URLManager.getCategoryName(categoryId) + ', która jest głupia.')
-
             if(URLManager.isCategoryStupid(categoryId)) {
                 hit();
+                displayInfobox('Ratuj mnie! :(', 'Tracę punkty życia, ponieważ film na YouTube który oglądasz znajduje się w kategorii '
+					+ URLManager.getCategoryName(categoryId) + ', która jest głupia.');
                 console.log("Hit because category " + categoryId + " is stupid");
             }
 			else {
                 heal();
+                displayInfobox('Lubię tę kategorię :). ', URLManager.getCategoryName(categoryId) + ' jest ' + getRandomCoolWord());
+
                 console.log("Heal because category " + categoryId + " is smart	");
             }
         }
@@ -275,6 +285,9 @@ function handleYoutubeUrl(url){
     http_request.send();
 }
 
+function getRandomCoolWord(){
+	return "super";
+}
 function decreaseHP(){
 	var hp = data.hp;
 	var newHP = hp - 10;
@@ -407,7 +420,7 @@ function updateHPBar() {
 function onBlur() {
 	saveData();
 	pauseTick();
-	$("#browsergotchi").hide();
+	// $("#browsergotchi").hide();
 };
 
 function onFocus(){
