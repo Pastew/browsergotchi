@@ -17,6 +17,17 @@
 	transform: none;
 }
 
+#browsergotchi.browsergotchi-dead {
+	background: #111;
+	color: #fff;
+	padding: 5px;
+}
+
+#browsergotchi.browsergotchi-dead h2 {
+	margin: 10px 0;
+}
+
+
 #browsergotchi.browsergotchi-shown.updating {
 	/*animation: browsergotchi-enter 0.9s 1 linear;*/
 }

@@ -56,6 +56,13 @@ function saveData(){
 	});	
 }
 
+function showDeathMessage() {
+	$('#browsergotchi').html('');
+	$('<h2>').html('Twoje zwierzątko nie żyje :(').appendTo('#browsergotchi');
+	$('<p>').html('Twoje browsergotchi umarło na tej stronie internetowej, ponieważ nie ma tu pożywnego contentu.').appendTo('#browsergotchi');
+	$('#browsergotchi').addClass('browsergotchi-dead')
+}
+
 /*
 This function is executed by saveData.
 If you want to update something in view window do it here.
@@ -63,10 +70,15 @@ If you want to update something in view window do it here.
 function refreshView(){
 	console.log(data.hp);
 	console.log("RefreshView");
-	$("#browsergotchi-hp").text("HP: " + data.hp);
-	var url = chrome.extension.getURL('assets/' + getFrogImageBasedOnHP(data.hp));
-    $('#browsergotchi-monster').attr('src', url);
-    updateHPBar();
+
+	if (data.hp < 11) {
+		showDeathMessage();
+    } else {
+        $("#browsergotchi-hp").text("HP: " + data.hp);
+        var url = chrome.extension.getURL('assets/' + getFrogImageBasedOnHP(data.hp));
+        $('#browsergotchi-monster').attr('src', url);
+        updateHPBar();
+    }
 }
 
 function initStorage(){
