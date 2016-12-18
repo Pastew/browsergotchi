@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "browsergotchi",
-  "version": "1.0",
+  "version": "0.5",
 
   "description": "Nie lubi gdy oglądasz głupoty w internecie.",
   "permissions": ["tabs",

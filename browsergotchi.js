@@ -43,7 +43,7 @@ var URLManager = (function () {
     }
 
     var getCurrentWebsiteName = function() {
-		var url = window.location.href;
+		var url = window.location.hostname;
 
 		return url
     }
@@ -229,6 +229,8 @@ function onUnknownUrl() {
         // This is stupid website
         data.stupidUrls.push(URLManager.getCurrentWebsiteName());
     }
+    console.log(data.stupidUrls);
+    console.log(data.smartUrls);
 }
 
 function getFrogImageBasedOnHP(hp) {
