@@ -17,13 +17,19 @@
 	transform: none;
 }
 
-#browsergotchi.browsergotchi-dead {
+#browsergotchi-infobox{
 	background: #111;
 	color: #fff;
 	padding: 5px;
+
+	position: fixed;
+	right: 0;
+	top: 280px;
+	z-index:2147483646;
+	width:250px;
 }
 
-#browsergotchi.browsergotchi-dead h2 {
+#browsergotchi-infobox h2 {
 	margin: 10px 0;
 }
 

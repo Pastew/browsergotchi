@@ -95,24 +95,22 @@ var URLManager = (function () {
 	}
 })();
 
-function showBorder(duration, maxAlpha, r, g, b){
-    var div = $('#browsergotchi');
-	//var div = $('body'); // You can show red bg color on body instead
-    $({alpha:0}).animate({alpha:maxAlpha}, {
-        duration: duration,
-        step: function(){
-            div.css('border-color','rgba('+r+','+g+','+b+','+this.alpha+')');
-        }
-    });
-	
-	setTimeout(function(){
-		$({alpha:maxAlpha}).animate({alpha:0}, {
-			duration: duration*3,
-			step: function(){
-				div.css('border-color','rgba('+r+','+g+','+b+','+this.alpha+')');
-			}
-		});
-	}, duration);
+function displayInfobox(title, message) {
+	var box;
+    if ($('#browsergotchi-infobox').length > 0) {
+    	box = $('#browsergotchi-infobox');
+    	box.html();
+	} else {
+		box = $('<div id="browsergotchi-infobox"></div>');
+		console.log(box);
+		$('body').append(box);
+	}
+    $('<h2>').html(title).appendTo(box);
+    $('<p>').html(message).appendTo(box);
+
+    setTimeout(function () {
+		box.fadeOut();
+    }, 2200)
 }
 
 function saveData(){
@@ -336,7 +334,6 @@ function injectMonsterWindow(){
 	$("#browsergotchi").draggable();
 	$("#browsergotchi").draggable('disable');
 	$("#browsergotchi").append('<div id="browsergotchi-hp">HP:</div>');
-	// TODO: Niemcu - pewnie tutaj bedziesz musial jakos wsadzic te obrazki
 	var svg = $('<img />');
 
 	var hpbar = $('<div />');
@@ -359,6 +356,9 @@ function injectMonsterWindow(){
 		} else {
             $('#browsergotchi').addClass('browsergotchi-showing');
 		}
+
+
+		displayInfobox('Dupa', 'dupa duap asduh sad ');
 	});
     $('#browsergotchi').on('animationend', function () {
         $(this).removeClass('updating');
