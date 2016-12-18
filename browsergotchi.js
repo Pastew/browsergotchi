@@ -153,6 +153,9 @@ function hit(){
 	console.log("HIT");
 	// showBorder(200, 0.9, "255", "0", "0");
 	$('#browsergotchi-monster').addClass('monster-hit');
+	if (monsterShown) {
+        $('#browsergotchi').addClass('updating');
+	}
 	decreaseHP();
 }
 
@@ -160,6 +163,9 @@ function heal(){
 	console.log("Heal");
 	// showBorder(200, 0.9, "0", "255", "0");
     $('#browsergotchi-monster').addClass('monster-heal');
+    if (monsterShown) {
+        $('#browsergotchi').addClass('updating');
+    }
     increaseHP();
 }
 
@@ -198,12 +204,10 @@ function injectMonsterWindow(){
 		e.stopPropagation();
 		$(this).removeClass('monster-hit monster-heal');
     });
-	console.log('svg');
 	svg.appendTo('#browsergotchi');
 
 	$('#browsergotchi').on('click', function () {
         animating = true;
-		console.log(' KLIK KURWA ');
 		if (monsterShown) {
             $('#browsergotchi').addClass('browsergotchi-hiding');
 		} else {
@@ -211,7 +215,7 @@ function injectMonsterWindow(){
 		}
 	});
     $('#browsergotchi').on('animationend', function () {
-    	console.log('cuda sie tu dzieje');
+        $(this).removeClass('updating');
         if (monsterShown) {
             $(this).removeClass('browsergotchi-hiding browsergotchi-shown').addClass('browsergotchi-hidden');
             monsterShown = false;

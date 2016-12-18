@@ -17,6 +17,10 @@
 	transform: none;
 }
 
+#browsergotchi.browsergotchi-shown.updating {
+	/*animation: browsergotchi-enter 0.9s 1 linear;*/
+}
+
 #browsergotchi.browsergotchi-shown #browsergotchi-hpbar {
 	opacity: 1;
 }
@@ -90,10 +94,6 @@
 }
 
 #browsergotchi:hover {
-}
-
-#browsergotchi.entering {
-	animation: enter 0.9s 1 linear;
 }
 
 #browsergotchi.hide {
