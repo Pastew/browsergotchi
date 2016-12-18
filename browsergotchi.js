@@ -1,16 +1,24 @@
 var URLManager = (function () {
-	var stupidUrls = ["joemonster", "wykop", "demotywatory"];
-	
+	var stupidUrls = ["joemonster.org", "wykop", "demotywatory"];
+	var smartUrls = ["stackoverflow", "khanacademy", "duolingo", "quora", "google"];
+
 	var getStupidUrls = function() {
 		return stupidUrls;
 	}
+
+    var getSmartUrls = function() {
+        return smartUrls;
+    }
+
+    var setSmartUrls = function(urls) {
+        smartUrls = urls
+    }
 	
 	var setStupidUrls = function(urls){
 		stupidUrls = urls;
 	}
 	
 	var isStupidUrl = function (url) {
-		
 		console.log("Checking if " + url + " is stupid.");
 		for (var i = 0; i < stupidUrls.length; i++) {
 			if(url.includes(stupidUrls[i])){
@@ -18,14 +26,36 @@ var URLManager = (function () {
 				return true;
 			}
 		}
-		console.log("No, it's fine.");
+		console.log("It's not stupid");
 		return false;
 	}
-	
+
+    var isSmartUrl = function (url) {
+        console.log("Checking if " + url + " is smart.");
+        for (var i = 0; i < smartUrls.length; i++) {
+            if(url.includes(smartUrls[i])){
+                console.log("Yes, it is smart.");
+                return true;
+            }
+        }
+        console.log("It's now smart.");
+        return false;
+    }
+
+    var getCurrentWebsiteName = function() {
+		var url = window.location.href;
+
+		return url
+    }
+
 	return {
 		isStupidUrl: isStupidUrl,
 		getStupidUrls: getStupidUrls,
-		setStupidUrls: setStupidUrls
+		setStupidUrls: setStupidUrls,
+		getSmartUrls: getSmartUrls,
+        setSmartUrls: setSmartUrls,
+		isSmartUrl: isSmartUrl,
+        getCurrentWebsiteName: getCurrentWebsiteName
 	}
 })();
 
@@ -87,17 +117,23 @@ function initStorage(){
 			data.hp = 100;
 			data.tmp = "blublu";
 			data.stupidUrls = URLManager.getStupidUrls();
-			saveData();
+            data.smartUrls = URLManager.getSmartUrls();
 		}
 		else{
 			data = item.data;
 			if(!data.stupidUrls){
 				data.stupidUrls = URLManager.getStupidUrls();
-				saveData();
 			} else {
 				URLManager.setStupidUrls(data.stupidUrls);
 			}
-			refreshView();
+
+            if(!data.smartUrls){
+                data.smartUrls = URLManager.getSmartUrls();
+            } else {
+                URLManager.setSmartUrls(data.smartUrls);
+            }
+            saveData();
+            refreshView();
 		}
 		console.log(data);
 	});
@@ -126,8 +162,10 @@ function tick(){
 	console.log("TICK");
 	if(URLManager.isStupidUrl(window.location.href))
 		hit();
-	else
+	else if (URLManager.isSmartUrl(window.location.href))
 		heal();
+	else
+		onUnknownUrl();
 }
 
 function decreaseHP(){
@@ -181,6 +219,18 @@ function heal(){
     increaseHP();
 }
 
+function onUnknownUrl() {
+    var answer = confirm("Czy ta strona jest mądra? Nie oszukuj!")
+    if (answer){
+    	// This is smart website
+        data.smartUrls.push(URLManager.getCurrentWebsiteName());
+    }
+    else{
+        // This is stupid website
+        data.stupidUrls.push(URLManager.getCurrentWebsiteName());
+    }
+}
+
 function getFrogImageBasedOnHP(hp) {
     if (hp <= 0)
         return 'killed.svg';
@@ -211,7 +261,7 @@ function injectMonsterWindow(){
 	$(hpbar).appendTo('#browsergotchi');
 
 	$(svg).attr('src', chrome.extension.getURL('assets/normal.svg'));
-	$(svg).attr('id', 'browsergotchi-monster');
+	$(svg).attr('id',  	'browsergotchi-monster');
 	$(svg).on('animationend', function (e) {
 		e.stopPropagation();
 		$(this).removeClass('monster-hit monster-heal');
