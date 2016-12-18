@@ -188,7 +188,6 @@ function handleYoutubeUrl(url){
                 alert("Your browser broke!");
                 return false;
             }
-
         }
     }
 
@@ -202,8 +201,8 @@ function handleYoutubeUrl(url){
             // be accessed as jsonObj.name and jsonObj.country.
             //document.getElementById("Name").innerHTML = jsonObj.name;
            // document.getElementById("Country").innerHTML = jsonObj.country;
-			console.log("YESSSSSSS I GOT IT!!!!!");
-			console.log(jsonObj);
+			var categoryId = jsonObj.items[0].snippet.categoryId;
+            console.log("CategoryID: " + categoryId);
         }
     }
 
