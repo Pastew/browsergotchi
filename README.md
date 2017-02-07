@@ -30,14 +30,17 @@ Krakow, Poland
 1. Wybierz folder który rozpakowałeś wcześniej
 1. Powinno działać.
 
-Żaba się smuci, bo oglądasz głupie filmiki na YT:
-![sad example youtube](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshoots/sad_example_youtube.png)
+Żaba się smuci, bo oglądasz filmiki które są w kategorii znanej jako głupia.
+![sad example youtube](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/sad_example_youtube.png)
 
-Żaba się cieszy bo oglądasz mądre filmiki na YT:
-![happy example youtube](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshoots/sad_example.png)
+Żaba się cieszy bo tu film pochodzi z mądrej kategorii.
+![happy example youtube](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/happy_example_youtube.png)
 
 Żaba się smuci bo oglądasz głupią stronę:
-![sad example 9gag](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshoots/sad_example_9gag.png)
+![sad example 9gag](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/sad_example_9gag.png)
 
 Żaba nie zna jeszcze tej strony. To Ty decydujesz czy ta strona jest mądra czy nie!
-![choice example](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshoots/choice_example.png)
+![choice example](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/choice.png)
+
+Okienko z zapisanymi stronami
+![choice example](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/menu.png)
