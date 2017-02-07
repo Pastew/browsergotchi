@@ -111,7 +111,7 @@ function displayInfobox(title, message) {
 	console.log('display INFOB', infoboxShownHere);
     if(infoboxShownHere === window.location.href)
         return;
-    console.log('Ty kurow');
+
     infoboxShownHere = window.location.href;
 
 	var box;
@@ -210,10 +210,14 @@ function tick(){
 	if(window.location.href.includes("youtube.com/watch")){
         handleYoutubeUrl(window.location.href);
 	}
-	else if(URLManager.isStupidUrl(window.location.href))
-		hit();
-	else if (URLManager.isSmartUrl(window.location.href))
-		heal();
+	else if(URLManager.isStupidUrl(window.location.href)) {
+        hit();
+        displayInfobox('Ranisz mnie :(', "Nie lubię " + window.location.hostname);
+    }
+	else if (URLManager.isSmartUrl(window.location.href)) {
+        displayInfobox('Fajnie! :) Bardzo lubię ' + window.location.hostname);
+        heal();
+    }
 	else
 		onUnknownUrl();
 }
@@ -419,7 +423,7 @@ function updateHPBar() {
 function onBlur() {
 	saveData();
 	pauseTick();
-	// $("#browsergotchi").hide();
+	 $("#browsergotchi").hide();
 };
 
 function onFocus(){
