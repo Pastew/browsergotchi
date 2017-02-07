@@ -30,17 +30,23 @@ Krakow, Poland
 1. Wybierz folder który rozpakowałeś wcześniej
 1. Powinno działać.
 
-Żaba się smuci, bo oglądasz filmiki które są w kategorii znanej jako głupia.
+## Przykłady
+
+### Żaba się smuci, bo oglądasz filmiki które są w kategorii znanej jako głupia.
 ![sad example youtube](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/sad_example_youtube.png)
 
-Żaba się cieszy bo tu film pochodzi z mądrej kategorii.
+
+### Żaba się cieszy bo tu film pochodzi z mądrej kategorii.
 ![happy example youtube](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/happy_example_youtube.png)
 
-Żaba się smuci bo oglądasz głupią stronę:
+
+### Żaba się smuci bo oglądasz głupią stronę:
 ![sad example 9gag](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/sad_example_9gag.png)
 
-Żaba nie zna jeszcze tej strony. To Ty decydujesz czy ta strona jest mądra czy nie!
+
+### Żaba nie zna jeszcze tej strony. To Ty decydujesz czy ta strona jest mądra czy nie!
 ![choice example](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/choice.png)
 
-Okienko z zapisanymi stronami
+
+### Okienko z zapisanymi stronami
 ![choice example](https://raw.githubusercontent.com/Pastew/browsergotchi/master/screenshots/menu.png)
